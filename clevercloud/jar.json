@@ -1,0 +1,9 @@
+{
+    "build": {
+      "type": "maven",
+      "goal": "clean package"
+    },
+    "deploy": {
+      "jarName": "target/private-showcase-back-1.0-SNAPSHOT.jar"
+    }
+  }
