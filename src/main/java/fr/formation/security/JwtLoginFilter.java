@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,22 +29,31 @@ public class JwtLoginFilter extends AbstractAuthenticationProcessingFilter {
 		super(new AntPathRequestMatcher(url));
 		setAuthenticationManager(authManager);
 	}
-	
+
 	/**
 	 * Perform authentication of the user from request values
 	 */
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
 			throws AuthenticationException, IOException, ServletException {
-		
-		Credentials creds = new ObjectMapper().readValue(req.getInputStream(), Credentials.class);
-		
+
+		Credentials creds = null;
+
+		if (!StringUtils.isEmpty(req.getParameter("username")) && !StringUtils.isEmpty(req.getParameter("password"))) {
+			creds = new Credentials();
+			creds.setUsername(req.getParameter("username"));
+			creds.setPassword(req.getParameter("password"));
+		} else {
+
+			creds = new ObjectMapper().readValue(req.getInputStream(), Credentials.class);
+		}
 		return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getUsername(),
 				creds.getPassword(), Collections.emptyList()));
 	}
 
 	/**
-	 * When a successfulAuthentication is made, this method can add the authentication to the response
+	 * When a successfulAuthentication is made, this method can add the
+	 * authentication to the response
 	 */
 	@Override
 	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
