@@ -1,0 +1,19 @@
+language: java
+sudo: false
+install: true
+addons:
+  sonarcloud:
+    organization: bewizyu-formation
+    token:
+      secure: $SONAR_CLOUD_TOKEN
+    branches:
+    - master
+jdk:
+ - oraclejdk8
+script:
+  - mvn clean package
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+cache:
+  directories:
+  - "$HOME/.m2/repository"
+  - "$HOME/.sonar/cache"
