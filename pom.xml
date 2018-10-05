@@ -92,8 +92,8 @@
 			<properties>
 				<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
 				<jdbc.url>jdbc:mysql://localhost:3306/showcase-db</jdbc.url>
-				<jdbc.user>showcase-db</jdbc.user>
-				<jdbc.pass>showcase-db</jdbc.pass>
+				<jdbc.user>root</jdbc.user>
+				<jdbc.pass>root</jdbc.pass>
 				<jpa.hibernate.ddl>create-drop</jpa.hibernate.ddl>
 				<jdbc.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</jdbc.dialect>
 				<jdbc.connections.max.active>5</jdbc.connections.max.active>
