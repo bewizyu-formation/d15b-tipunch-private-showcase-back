@@ -2,7 +2,6 @@ package fr.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -116,7 +115,7 @@ public class Artist extends User {
     public void setAllowedDepartment(ArrayList<String> allowedDepartment) {
         this.allowedDepartment = allowedDepartment;
     }
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
