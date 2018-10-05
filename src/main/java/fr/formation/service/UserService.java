@@ -1,7 +1,8 @@
-package fr.formation.user;
+package fr.formation.service;
 
 import java.util.Collection;
 
+import fr.formation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

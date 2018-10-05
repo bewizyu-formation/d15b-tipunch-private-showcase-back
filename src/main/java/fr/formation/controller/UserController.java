@@ -1,11 +1,12 @@
-package fr.formation.user;
+package fr.formation.controller;
 
+import fr.formation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController(value = "/users")
+@RestController(value = "/users/{userId}")
 public class UserController {
 
 	@Autowired

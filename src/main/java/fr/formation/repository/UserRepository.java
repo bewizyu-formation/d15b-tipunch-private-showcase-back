@@ -1,4 +1,4 @@
-package fr.formation.user;
+package fr.formation.repository;
 
 import java.util.Collection;
 
