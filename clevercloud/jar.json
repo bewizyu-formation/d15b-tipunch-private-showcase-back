@@ -4,6 +4,6 @@
       "goal": "clean package -P prod"
     },
     "deploy": {
-      "jarName": "target/project-private-showcase-back-1.0-SNAPSHOT.jar"
+      "jarName": "target/project-private-showcase-back-tipunch-1.0-SNAPSHOT.jar"
     }
   }
