@@ -115,7 +115,7 @@ public class Artist extends User {
     public void setAllowedDepartment(ArrayList<String> allowedDepartment) {
         this.allowedDepartment = allowedDepartment;
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
