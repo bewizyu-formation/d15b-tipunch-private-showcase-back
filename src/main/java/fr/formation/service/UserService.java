@@ -3,7 +3,11 @@ package fr.formation.service;
 import java.util.Collection;
 import java.util.List;
 
+
+import fr.formation.user.User;
 import fr.formation.repository.UserRepository;
+import fr.formation.user.UserRole;
+import fr.formation.user.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
