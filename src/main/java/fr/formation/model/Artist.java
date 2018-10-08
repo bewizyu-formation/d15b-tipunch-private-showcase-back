@@ -36,6 +36,22 @@ public class Artist extends User {
     public Artist() {
     }
 
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "artistName='" + artistName + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", longDescription='" + longDescription + '\'' +
+                ", website='" + website + '\'' +
+                ", artistEmail='" + artistEmail + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", allowedDepartment=" + allowedDepartment +
+                ", picture='" + picture + '\'' +
+                ", grade=" + grade +
+                '}';
+    }
+
     public String getArtistName() {
         return artistName;
     }
