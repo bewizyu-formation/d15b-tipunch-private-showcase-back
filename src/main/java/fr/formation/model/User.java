@@ -23,8 +23,8 @@ public class User {
     @NotNull
     private String email;
 
-    @ManyToOne
-    private City city;
+    @NotNull
+    private Integer city;
 
     public User() {
     }
@@ -72,11 +72,11 @@ public class User {
         this.email = email;
     }
 
-    public City getCity() {
+    public Integer getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(Integer city) {
         this.city = city;
     }
 

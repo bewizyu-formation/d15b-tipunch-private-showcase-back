@@ -28,8 +28,7 @@ public class Artist extends User {
 
     private String phoneNumber;
 
-    @ManyToMany
-    private ArrayList<Department> allowedDepartment;
+    private ArrayList<String> allowedDepartment;
 
     private String picture;
 
@@ -94,14 +93,6 @@ public class Artist extends User {
         this.phoneNumber = phoneNumber;
     }
 
-    public ArrayList<Department> getAllowedDepartment() {
-        return allowedDepartment;
-    }
-
-    public void setAllowedDepartment(ArrayList<Department> allowedDepartment) {
-        this.allowedDepartment = allowedDepartment;
-    }
-
     public String getPicture() {
         return picture;
     }
@@ -116,6 +107,14 @@ public class Artist extends User {
 
     public void setGrade(ArrayList<Integer> grade) {
         this.grade = grade;
+    }
+
+    public ArrayList<String> getAllowedDepartment() {
+        return allowedDepartment;
+    }
+
+    public void setAllowedDepartment(ArrayList<String> allowedDepartment) {
+        this.allowedDepartment = allowedDepartment;
     }
 
     @Override
