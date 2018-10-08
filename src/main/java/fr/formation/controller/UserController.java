@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController(value = "/users/{userId}")
 public class UserController {
 
-	@Autowired
+
 	private UserService userService;
+
+	@Autowired
+	public UserController(UserService userService){
+		this.userService = userService;
+	}
 
 	@PutMapping("/")
 	public void signup(@RequestParam String username, @RequestParam String password,

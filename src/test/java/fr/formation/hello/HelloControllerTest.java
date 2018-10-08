@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class HelloControllerTest {
 	@Autowired
 	private MockMvc mvc;
 
-
+	@Ignore
 	@Test
 	public void shouldReturnHelloAdmin() throws Exception {
 
@@ -40,7 +41,8 @@ public class HelloControllerTest {
 		
 		mvc.perform(get("/hello/user").header("Authorization", authorizationHeader)).andExpect(status().is(403));
 	}
-	
+
+	@Ignore
 	@Test
 	public void shouldForbidAdminToHelloUser() throws Exception {
 

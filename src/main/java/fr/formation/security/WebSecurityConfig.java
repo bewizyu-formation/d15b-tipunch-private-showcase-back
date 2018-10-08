@@ -1,11 +1,14 @@
 package fr.formation.security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -16,8 +19,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	static final String ROLE_ADMIN="ADMIN";
+
+	static final String ROLE_ADMIN = "ADMIN";
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -40,17 +43,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	                		UsernamePasswordAuthenticationFilter.class);
 		// @formatter:on
 	}
-	
-	@Override
-	  public void configure(WebSecurity web) throws Exception {
-	    // Allow swagger to be accessed without authentication
-	    web.ignoring().antMatchers("/v2/api-docs")//
-	        .antMatchers("/swagger-resources/**")//
-	        .antMatchers("/swagger-ui.html")//
-	        .antMatchers("/configuration/**")//
-	        .antMatchers("/webjars/**")//
-	        .antMatchers("/public");
-	  }
 
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		// Allow swagger to be accessed without authentication
+		web.ignoring().antMatchers("/v2/api-docs")//
+				.antMatchers("/swagger-resources/**")//
+				.antMatchers("/swagger-ui.html")//
+				.antMatchers("/configuration/**")//
+				.antMatchers("/webjars/**")//
+				.antMatchers("/public");
+	}
+
+	// Algorithme de hashage du mot de passe
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 }
