@@ -2,7 +2,6 @@ package fr.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -35,6 +34,22 @@ public class Artist extends User {
     private ArrayList<Integer> grade;
 
     public Artist() {
+    }
+
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "artistName='" + artistName + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", longDescription='" + longDescription + '\'' +
+                ", website='" + website + '\'' +
+                ", artistEmail='" + artistEmail + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", allowedDepartment=" + allowedDepartment +
+                ", picture='" + picture + '\'' +
+                ", grade=" + grade +
+                '}';
     }
 
     public String getArtistName() {
