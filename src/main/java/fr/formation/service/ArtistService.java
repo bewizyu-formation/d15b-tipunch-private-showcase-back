@@ -15,50 +15,53 @@ import java.util.Optional;
 public class ArtistService {
 
     private UserRoleRepository userRoleRepository;
-    private ArtistRepository artistRepository ;
+    private ArtistRepository artistRepository;
 
     @Autowired
-    public ArtistService(ArtistRepository artistRepository, UserRoleRepository userRoleRepository){
+    public ArtistService(ArtistRepository artistRepository, UserRoleRepository userRoleRepository) {
         this.artistRepository = artistRepository;
         this.userRoleRepository = userRoleRepository;
     }
 
-    public void save(Artist artist, String... roles) {
+    public void save(Artist artist) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encryptedPassword = encoder.encode(artist.getPassword());
         artist.setPassword(encryptedPassword);
         artist = artistRepository.save(artist);
 
-        for (String role : roles) {
+        UserRole artistRole = new UserRole();
+        artistRole.setRole("ARTIST");
+        artistRole.setUserId(artist.getId());
+        userRoleRepository.save(artistRole);
 
-            UserRole userRole = new UserRole();
-            userRole.setRole(role.toUpperCase());
-            userRole.setUserId(artist.getId());
-
-            userRoleRepository.save(userRole);
-        }
-
+        UserRole userRole = new UserRole();
+        userRole.setRole("USER");
+        userRole.setUserId(artist.getId());
+        userRoleRepository.save(userRole);
     }
-    public Artist findOne(Long userId){
+
+    public Artist findOne(Long userId) {
         Optional<Artist> optionalArtist = artistRepository.findById(userId);
         return optionalArtist.isPresent() ? optionalArtist.get() : null;
     }
 
-    public List<Artist> findAll(){
+    public List<Artist> findAll() {
         return this.artistRepository.findAll();
     }
-    public void update(Long id, Artist artist){
+
+    public void update(Long id, Artist artist) {
         Optional<Artist> optionalArtist = artistRepository.findById(id);
         optionalArtist.ifPresent(a -> {
             a = artist;
             this.save(a);
-        } );
+        });
     }
-    public void deleteById(Long id){
+
+    public void deleteById(Long id) {
         this.artistRepository.deleteById(id);
     }
 
-    public List<Artist> findAllByDeptId(Integer deptId){
+    public List<Artist> findAllByDeptId(Integer deptId) {
         return this.artistRepository.findArtistsByAllowedDepartmentLike(deptId);
     }
 }
