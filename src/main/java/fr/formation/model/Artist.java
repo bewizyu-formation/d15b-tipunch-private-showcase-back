@@ -1,10 +1,10 @@
 package fr.formation.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,7 +27,13 @@ public class Artist extends User {
 
     private String phoneNumber;
 
-    private ArrayList<String> allowedDepartment;
+    @ElementCollection
+    @CollectionTable(
+            name="DepartmentListByArtist",
+            joinColumns=@JoinColumn(name="Artist_ID")
+    )
+    @Column(name="allowedDepartment")
+    private List<String> allowedDepartment;
 
     private String picture;
 
@@ -124,11 +130,11 @@ public class Artist extends User {
         this.grade = grade;
     }
 
-    public ArrayList<String> getAllowedDepartment() {
+    public List<String> getAllowedDepartment() {
         return allowedDepartment;
     }
 
-    public void setAllowedDepartment(ArrayList<String> allowedDepartment) {
+    public void setAllowedDepartment(List<String> allowedDepartment) {
         this.allowedDepartment = allowedDepartment;
     }
 
