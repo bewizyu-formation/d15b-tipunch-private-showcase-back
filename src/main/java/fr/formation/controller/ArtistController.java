@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @RestController
 @RequestMapping("/artists")
 public class ArtistController {
@@ -26,6 +30,8 @@ public class ArtistController {
         a.setCity(0);
         a.setArtistName("daaaBand");
         a.setShortDescription("we rock");
+        String[] depList = {"74","38","69"};
+        a.setAllowedDepartment(new ArrayList<String>(Arrays.asList(depList)));
 
         System.out.println(a);
         this.artistService.save(a);
