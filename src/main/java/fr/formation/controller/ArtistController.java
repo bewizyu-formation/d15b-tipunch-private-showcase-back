@@ -2,13 +2,12 @@ package fr.formation.controller;
 
 import fr.formation.model.Artist;
 import fr.formation.service.ArtistService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping("/artists")
@@ -18,23 +17,36 @@ public class ArtistController {
     public ArtistController(ArtistService artistService){
         this.artistService = artistService;
     }
-
+    @Secured("ROLE_ARTIST")
+    @GetMapping("/{artistId}")
+    public Artist findOne(@PathVariable String userId){
+        return artistService.findOne(Long.parseLong(userId));
+    }
+    @Secured("ROLE_ARTIST")
     @GetMapping()
-    public  void create(){
+    public List<Artist> findAll(){
+        return artistService.findAll();
+    }
 
-        Artist a = new Artist();
+    @PostMapping()
+    public void signup(@RequestBody Artist artist, @RequestParam String... roles) {
 
-        a.setLogin("travis");
-        a.setPassword("daaa");
-        a.setEmail("daaa@gmail.com");
-        a.setCity(0);
-        a.setArtistName("daaaBand");
-        a.setShortDescription("we rock");
-        String[] depList = {"74","38","69"};
-        a.setAllowedDepartment(new ArrayList<String>(Arrays.asList(depList)));
+        artistService.save(artist, roles);
+    }
+    @Secured("ROLE_ARTIST")
+    @PutMapping("/{artistId}")
+    public void update(@PathVariable Long artistId, @RequestBody Artist artist){
+        artistService.update(artistId, artist);
+    }
+    @Secured("ROLE_ARTIST")
+    @DeleteMapping("/{artistId}")
+    public void delete(@PathVariable String userId){
+        artistService.deleteById(Long.parseLong(userId));
+    }
 
-        System.out.println(a);
-        this.artistService.save(a);
-
+    @Secured("ROLE_USER")
+    @GetMapping("/department/{deptId}")
+    public List<Artist> findAllByDeptId(@PathVariable Integer deptId){
+        return artistService.findAllByDeptId(deptId);
     }
 }
