@@ -60,7 +60,7 @@ public class UserService implements UserDetailsService {
 		for (String role : roles) {
 
 			UserRole userRole = new UserRole();
-			userRole.setRole(role);
+			userRole.setRole(role.toUpperCase());
 			userRole.setUserId(user.getId());
 
 			userRoleRepository.save(userRole);
