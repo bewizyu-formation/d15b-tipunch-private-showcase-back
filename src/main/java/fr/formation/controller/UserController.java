@@ -1,12 +1,15 @@
 package fr.formation.controller;
 
+import fr.formation.model.User;
 import fr.formation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController(value = "/users/{userId}")
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/users")
 public class UserController {
 
 
@@ -17,12 +20,29 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@PutMapping("/")
-	public void signup(@RequestParam String username, @RequestParam String password,
-			@RequestParam String... roles) {
-
-		userService.addNewUser(username, password, roles);
-
+	@GetMapping("/{userId}")
+	public User findOne(@PathVariable String userId){
+		return userService.findOne(Long.parseLong(userId));
 	}
 
+	@GetMapping()
+	public List<User> findAll(){
+		return userService.findAll();
+	}
+
+	@PostMapping()
+	public void signup(@RequestBody User user, @RequestParam String... roles) {
+
+		userService.save(user, roles);
+	}
+
+	@PutMapping("/{userId}")
+	public void update(@PathVariable String userId, @RequestBody User user){
+		userService.udpate(Long.parseLong(userId), user);
+	}
+
+	@DeleteMapping("/{userId}")
+	public void delete(@PathVariable String userId){
+		userService.deleteById(Long.parseLong(userId));
+	}
 }

@@ -1,4 +1,4 @@
-package fr.formation.user;
+package fr.formation.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

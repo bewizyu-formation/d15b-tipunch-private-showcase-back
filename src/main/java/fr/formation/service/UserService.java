@@ -2,18 +2,20 @@ package fr.formation.service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 
-import fr.formation.user.User;
+import fr.formation.model.User;
 import fr.formation.repository.UserRepository;
-import fr.formation.user.UserRole;
-import fr.formation.user.UserRoleRepository;
+import fr.formation.model.UserRole;
+import fr.formation.repository.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -30,15 +32,15 @@ public class UserService implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUsername(username);
+	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+		User user = userRepository.findByLogin(login);
 
 		if (user != null) {
-			List<String> roles = userRoleRepository.findRoleByUserName(username);
-			return new org.springframework.security.core.userdetails.User(username, user.getPassword(),
+			List<String> roles = userRoleRepository.findRoleByUserLogin(login);
+			return new org.springframework.security.core.userdetails.User(login, user.getPassword(),
 					transformToAuthorities(roles));
 		} else {
-			throw new UsernameNotFoundException("No user exists with username: " + username);
+			throw new UsernameNotFoundException("No user exists with username: " + login);
 		}
 
 	}
@@ -46,15 +48,13 @@ public class UserService implements UserDetailsService {
 	/**
 	 * Add a new user with the user repository
 	 * 
-	 * @param username
-	 * @param password
+	 * @param user
 	 * @param roles
 	 */
-	public void addNewUser(String username, String password, String... roles) {
-
-		User user = new User();
-		user.setUsername(username);
-		user.setPassword(password);
+	public void save(User user, String... roles) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encryptedPassword = encoder.encode(user.getPassword());
+	    user.setPassword(encryptedPassword);
 		user = userRepository.save(user);
 
 		for (String role : roles) {
@@ -67,7 +67,26 @@ public class UserService implements UserDetailsService {
 		}
 
 	}
+	public User findOne(Long userId){
+		Optional<User> optionalUser = userRepository.findById(userId);
+		return optionalUser.isPresent() ? optionalUser.get() : null;
+	}
+	public List<User> findAll(){
+		return this.userRepository.findAll();
+	}
 
+	public void udpate(Long userId, User user){
+		Optional<User> optionalUser = userRepository.findById(user.getId());
+		optionalUser.ifPresent(u -> {
+			u = user;
+			this.save(u);
+		} );
+	}
+
+	public void deleteById(Long userId){
+		userRoleRepository.deleteByUserId(userId);
+		userRepository.deleteById(userId);
+	}
 	/**
 	 * transform a list of roles (as {@link String}) into a list of
 	 * {@link GrantedAuthority}
