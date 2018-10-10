@@ -22,7 +22,7 @@ public class HelloController {
 	}
 
 	@GetMapping("/user")
-//	@Secured("ROLE_USER")
+	@Secured("ROLE_USER")
 	String sayHelloUser() {
 		return "Hello User!";
 	}

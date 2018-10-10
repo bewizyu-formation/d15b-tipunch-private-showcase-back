@@ -33,7 +33,7 @@ public class Artist extends User {
             joinColumns=@JoinColumn(name="Artist_ID")
     )
     @Column(name="allowedDepartment")
-    private List<String> allowedDepartment;
+    private List<Integer> allowedDepartment;
 
     private String picture;
 
@@ -130,11 +130,11 @@ public class Artist extends User {
         this.grade = grade;
     }
 
-    public List<String> getAllowedDepartment() {
+    public List<Integer> getAllowedDepartment() {
         return allowedDepartment;
     }
 
-    public void setAllowedDepartment(List<String> allowedDepartment) {
+    public void setAllowedDepartment(List<Integer> allowedDepartment) {
         this.allowedDepartment = allowedDepartment;
     }
 
