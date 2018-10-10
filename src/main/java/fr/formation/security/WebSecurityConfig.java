@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
-		http.csrf().disable().authorizeRequests()
+		http.cors().and().csrf().disable().authorizeRequests()
 			.antMatchers("/v2/api-docs").permitAll()
 			.antMatchers("/swagger-ui.html").permitAll()
 			.antMatchers("/health/").permitAll()

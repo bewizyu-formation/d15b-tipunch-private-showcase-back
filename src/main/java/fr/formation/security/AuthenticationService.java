@@ -2,6 +2,7 @@ package fr.formation.security;
 
 import static java.util.Collections.emptyList;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,7 +43,7 @@ public class AuthenticationService {
 	 * @param username
 	 */
 	static void addAuthentication(HttpServletResponse res, String username,
-			Collection<? extends GrantedAuthority> roles) {
+			Collection<? extends GrantedAuthority> roles) throws IOException{
 		List<String> rolesString = roles.parallelStream().map(roleValue -> roleValue.getAuthority())
 				.collect(Collectors.toList());
 
