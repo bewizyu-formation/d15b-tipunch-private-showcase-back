@@ -1,0 +1,562 @@
+{
+	"info": {
+		"_postman_id": "75592e0f-c6e7-4ba6-a5a0-d0eb26fffbad",
+		"name": "PrivateShowCase URIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login User/Artist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var headerJwtUser = responseHeaders[\"Authorization\"]",
+							"postman.setEnvironmentVariable(\"tokenUser\", headerJwtUser);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\":\"user\", \"password\":\"user\"}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status is 200\"] = responseCode.code == \"200\""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/hello/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hello",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status is 403\"] = responseCode.code == \"403\""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/hello/admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"hello",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin User (Permit All)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\"login\":\"user\",\n\t\"password\":\"user\",\n\t\"email\": \"user@gmail.fr\",\n\t\"city\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						""
+					]
+				},
+				"description": "Adding a simpler user with role=user"
+			},
+			"response": []
+		},
+		{
+			"name": "Signin Artist (PermitAll)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"id\": 1,\n        \"login\": \"artist\",\n        \"password\": \"artist\",\n        \"email\": \"artist\",\n        \"city\": 1,\n        \"artistName\": \"ArtistName\",\n        \"shortDescription\": \"description\",\n        \"longDescription\": null,\n        \"website\": null,\n        \"artistEmail\": null,\n        \"address\": null,\n        \"phoneNumber\": null,\n        \"allowedDepartment\": [\n            69,\n            44\n        ],\n        \"picture\": null,\n        \"grade\": null\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/artists/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artists",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAll Users (ROLE_USER)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindOne User (ROLE_USER)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User (ROLE_USER)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"id\": 1,\n        \"login\": \"newLogin\",\n        \"password\": \"$2a$10$7wtmxGgY3wpyM3gpjlBjzuYyChEx45.9EvmLug2jsSAcMsgJHJ9su\",\n        \"email\": \"user@gmail.fr\",\n        \"city\": 1\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User (ROLE_USER)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAll Artist (ROLE_ARTIST)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/artists",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindOne Artist (ROLE_ARTIST)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/artists/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artists",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateArtist (ROLE_ARTIST)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n    {\n        \"id\": 1,\n        \"login\": \"newArtist\",\n        \"password\": \"$2a$10$LmeB7PTc3b7k6oFvHPFlO.RBxf.In7bDHVFwGDRnZtYrWA21G7ENK\",\n        \"email\": \"artist\",\n        \"city\": 1,\n        \"artistName\": \"ArtistName\",\n        \"shortDescription\": \"description\",\n        \"longDescription\": null,\n        \"website\": null,\n        \"artistEmail\": null,\n        \"address\": null,\n        \"phoneNumber\": null,\n        \"allowedDepartment\": [\n            69,\n            44\n        ],\n        \"picture\": null,\n        \"grade\": null\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/artists/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artists",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Artist (ROLE_ARTIST)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/artists/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artists",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAll ArtistsByDept (ROLE_USER)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/artists/department/69",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"artists",
+						"department",
+						"69"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAll Citys (PERMIT_ALL)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/citys",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"citys"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindOne City (PERMIT_ALL)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/citys/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"citys",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAll Departments (PERMIT_ALL)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/departments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"departments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindOne Department (PERMIT_ALL)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/departments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"departments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
