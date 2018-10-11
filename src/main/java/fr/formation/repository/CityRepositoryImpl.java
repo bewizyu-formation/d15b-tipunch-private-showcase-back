@@ -18,30 +18,27 @@ public class CityRepositoryImpl {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public CityRepositoryImpl(JdbcTemplate jdbcTemplate){
-        jdbcTemplate = this.jdbcTemplate;
+    public CityRepositoryImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
 
-    public List<City> findAll(){
+    public List<City> findAll() {
         List<City> cityList = new ArrayList<>();
         jdbcTemplate.query(
-                "SELECT * FROM "+DB_TABLE_CITY,
+                "SELECT * FROM " + DB_TABLE_CITY,
                 (rs, rowNum) -> cityList.add(new City(rs.getInt(DB_CITY_ID), rs.getString(DB_CITY_NAME), rs.getString(DB_CITY_DEPARTMENT_CODE)))
         );
 
         return cityList;
     }
 
-    public City findOne(int id){
-        jdbcTemplate.query(
-                "SELECT * FROM "+DB_TABLE_CITY+" WHERE "+DB_CITY_ID+" = ?", new Object[]{id},
-                (rs, rowNum) -> {
-                    City city = null;
-                    city = new City(rs.getInt(DB_CITY_ID), rs.getString(DB_CITY_NAME), rs.getString(DB_CITY_DEPARTMENT_CODE));
-                    return city;
-                }
+    public City findOne(int id) {
+        City city = jdbcTemplate.queryForObject(
+                "SELECT * FROM " + DB_TABLE_CITY + " WHERE " + DB_CITY_ID + " = ?", new Object[]{id},
+                (rs, rowNum) -> new City(rs.getInt(DB_CITY_ID), rs.getString(DB_CITY_NAME), rs.getString(DB_CITY_DEPARTMENT_CODE))
+
         );
-        return null;
+        return city;
     }
 }
