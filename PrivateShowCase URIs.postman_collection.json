@@ -167,7 +167,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\n        \"id\": 1,\n        \"login\": \"artist\",\n        \"password\": \"artist\",\n        \"email\": \"artist\",\n        \"city\": 1,\n        \"artistName\": \"ArtistName\",\n        \"shortDescription\": \"description\",\n        \"longDescription\": null,\n        \"website\": null,\n        \"artistEmail\": null,\n        \"address\": null,\n        \"phoneNumber\": null,\n        \"allowedDepartment\": [\n            69,\n            44\n        ],\n        \"picture\": null,\n        \"grade\": null\n    }"
+					"raw": "{\n        \"id\": 3,\n        \"login\": \"artist\",\n        \"password\": \"artist\",\n        \"email\": \"user@a.fr\",\n        \"city\": 1,\n        \"artistName\": \"artisName\",\n        \"shortDescription\": \"aaaaaa\",\n        \"longDescription\": null,\n        \"website\": null,\n        \"artistEmail\": \"user@a.fr\",\n        \"address\": null,\n        \"phoneNumber\": null,\n        \"allowedDepartment\": [],\n        \"picture\": null,\n        \"grade\": null\n    }"
 				},
 				"url": {
 					"raw": "http://localhost:8080/artists/",
@@ -553,6 +553,62 @@
 					"path": [
 						"departments",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindOne City name startsWith (PERMIT_ALL)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/citys/startsWith/Lyo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"citys",
+						"startsWith",
+						"Lyo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindOneByLogin (ROLE_USER)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/login/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"login",
+						"user"
 					]
 				}
 			},

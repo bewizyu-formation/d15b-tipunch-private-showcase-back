@@ -37,4 +37,11 @@ public class CityRepositoryImpl {
         );
         return city;
     }
+
+    public List<City> findAllByNameLike(String startsWith) {
+        return jdbcTemplate.query(
+                "SELECT * FROM " + DB_TABLE_CITY + " WHERE " + DB_CITY_NAME + " LIKE ?", new Object[]{startsWith + "%"},
+                (rs, rowNum) -> new City(rs.getInt(DB_CITY_ID), rs.getString(DB_CITY_NAME), rs.getString(DB_CITY_DEPARTMENT_CODE))
+        );
+    }
 }

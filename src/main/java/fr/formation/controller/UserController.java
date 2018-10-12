@@ -25,6 +25,14 @@ public class UserController {
     }
 
     @Secured("ROLE_USER")
+    @GetMapping("/login/{userLogin}")
+    public User findOneByLogin(@PathVariable String userLogin) {
+        User user = userService.findOneByLogin(userLogin);
+        user.setPassword("");
+        return user;
+    }
+
+    @Secured("ROLE_USER")
     @GetMapping()
     public List<User> findAll() {
         return userService.findAll();
@@ -32,7 +40,6 @@ public class UserController {
 
     @PostMapping()
     public void signup(@RequestBody User user) {
-
         userService.save(user);
     }
 
@@ -47,4 +54,6 @@ public class UserController {
     public void delete(@PathVariable String userId) {
         userService.deleteById(Long.parseLong(userId));
     }
+
+
 }
