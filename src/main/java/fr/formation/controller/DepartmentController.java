@@ -27,4 +27,5 @@ public class DepartmentController {
     public Department findOne(@PathVariable Integer deptId) {
         return departmentRepository.findOne(deptId);
     }
+
 }

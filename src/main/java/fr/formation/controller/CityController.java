@@ -31,8 +31,8 @@ public class CityController {
     }
 
     @GetMapping("/startsWith/{nameStart}")
-    public List<City> findOneByNameLike(@PathVariable String nameStart) {
-        return cityRepository.findOneByNameLike(nameStart);
+    public List<City> findAllByNameLike(@PathVariable String nameStart) {
+        return cityRepository.findAllByNameLike(nameStart);
     }
 }
 

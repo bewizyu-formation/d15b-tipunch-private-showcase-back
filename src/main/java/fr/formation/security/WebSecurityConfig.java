@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/citys/startsWith/{nameStart}").permitAll()
                 .antMatchers(HttpMethod.GET, "/departments").permitAll()
                 .antMatchers(HttpMethod.GET, "/departments/{deptId}").permitAll()
+                .antMatchers(HttpMethod.GET, "/departments/codes/{codes}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout().permitAll()
