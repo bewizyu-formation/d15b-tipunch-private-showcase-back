@@ -2,7 +2,6 @@ package fr.formation.controller;
 
 import fr.formation.model.City;
 import fr.formation.repository.CityRepositoryImpl;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +28,11 @@ public class CityController {
     @GetMapping("/{cityId}")
     public City findOne(@PathVariable Integer cityId) {
         return cityRepository.findOne(cityId);
+    }
+
+    @GetMapping("/startsWith/{nameStart}")
+    public List<City> findOneByNameLike(@PathVariable String nameStart) {
+        return cityRepository.findOneByNameLike(nameStart);
     }
 }
 
