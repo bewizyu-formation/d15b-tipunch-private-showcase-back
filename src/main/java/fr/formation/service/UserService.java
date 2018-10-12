@@ -66,6 +66,10 @@ public class UserService implements UserDetailsService {
         return optionalUser.isPresent() ? optionalUser.get() : null;
     }
 
+    public User findOneByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
     public List<User> findAll() {
         return this.userRepository.findAll();
     }
