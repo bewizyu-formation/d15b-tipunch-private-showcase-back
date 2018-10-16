@@ -50,8 +50,8 @@ public class ArtistController {
     }
 
     @Secured("ROLE_USER")
-    @GetMapping("/department/{deptId}")
-    public List<Artist> findAllByDeptId(@PathVariable Integer deptId) {
-        return artistService.findAllByDeptId(deptId);
+    @GetMapping("/department/{deptCode}")
+    public List<Artist> findAllByDeptCode(@PathVariable String deptCode) {
+        return artistService.findAllByDeptCode(deptCode);
     }
 }
