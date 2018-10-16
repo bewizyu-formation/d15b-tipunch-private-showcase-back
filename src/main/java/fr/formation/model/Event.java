@@ -1,5 +1,6 @@
 package fr.formation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.formation.utils.LocalDateTimeConverter;
 import org.springframework.data.convert.JodaTimeConverters;
 import org.springframework.data.convert.Jsr310Converters;
@@ -29,10 +30,12 @@ public class Event {
 
     @ManyToOne
     @NotNull
+    @JsonIgnore
     private Artist artist;
 
     @ManyToOne
     @NotNull
+    @JsonIgnore
     private User organizer;
 
     @ManyToMany(mappedBy = "eventsAttended")
