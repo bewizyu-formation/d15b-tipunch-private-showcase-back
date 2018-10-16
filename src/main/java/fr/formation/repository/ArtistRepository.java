@@ -9,5 +9,4 @@ import java.util.List;
 
 @Repository
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
-    List<Artist> findArtistsByAllowedDepartmentLike(Integer deptId);
 }
