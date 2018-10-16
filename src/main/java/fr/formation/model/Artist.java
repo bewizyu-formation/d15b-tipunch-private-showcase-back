@@ -39,6 +39,9 @@ public class Artist extends User {
 
     private ArrayList<Integer> grade;
 
+    @OneToMany(mappedBy = "artist")
+    private List<Event> events;
+
     public Artist() {
     }
 
@@ -136,6 +139,14 @@ public class Artist extends User {
 
     public void setAllowedDepartment(List<Integer> allowedDepartment) {
         this.allowedDepartment = allowedDepartment;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 
     @Override

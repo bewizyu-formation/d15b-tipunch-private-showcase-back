@@ -46,7 +46,7 @@ public class UserController {
     @Secured("ROLE_USER")
     @PutMapping("/{userId}")
     public void update(@PathVariable Long userId, @RequestBody User user) {
-        userService.udpate(userId, user);
+        userService.update(userId, user);
     }
 
     @Secured("ROLE_USER")
@@ -54,6 +54,5 @@ public class UserController {
     public void delete(@PathVariable String userId) {
         userService.deleteById(Long.parseLong(userId));
     }
-
 
 }
