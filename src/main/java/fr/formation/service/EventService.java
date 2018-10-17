@@ -1,9 +1,9 @@
 package fr.formation.service;
 
-import fr.formation.controller.EventDto;
 import fr.formation.model.Event;
 import fr.formation.model.User;
 import fr.formation.repository.EventRepository;
+import fr.formation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +16,12 @@ import java.util.Optional;
 @Transactional
 public class EventService {
     private EventRepository eventRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public EventService(EventRepository eventRepository) {
+    public EventService(EventRepository eventRepository, UserRepository userRepository) {
         this.eventRepository = eventRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Event> findAll() {
@@ -39,12 +41,17 @@ public class EventService {
         eventRepository.deleteById(eventId);
     }
 
-    // TODO : [WIP] user can join an event
-//    public void addGuest(Long eventId, User user) {
-//        Event eventToUpdate = eventRepository.getOne(eventId);
-//        List<User> guests = new ArrayList<>(eventToUpdate.getGuests());
-//        guests.add(user);
-//        eventToUpdate.setGuests(guests);
-//        eventRepository.save(eventToUpdate);
-//    }
+    public void addGuest(Long eventId, User user) {
+        Event eventToUpdate = eventRepository.getOne(eventId);
+        List<User> guestListToUpdate = new ArrayList<>(eventToUpdate.getGuests());
+        List<Event> eventsAttendedByUserToUpdate = new ArrayList<>(user.getEventsAttended());
+
+        guestListToUpdate.add(user);
+        eventToUpdate.setGuests(guestListToUpdate);
+        eventsAttendedByUserToUpdate.add(eventToUpdate);
+        user.setEventsAttended(eventsAttendedByUserToUpdate);
+
+        userRepository.save(user);
+        eventRepository.save(eventToUpdate);
+    }
 }

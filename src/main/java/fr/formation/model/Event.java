@@ -2,11 +2,6 @@ package fr.formation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.formation.utils.LocalDateTimeConverter;
-import org.springframework.data.convert.JodaTimeConverters;
-import org.springframework.data.convert.Jsr310Converters;
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
-import org.springframework.data.jpa.convert.threetenbp.ThreeTenBackPortJpaConverters;
-import org.springframework.data.jpa.repository.Temporal;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,6 +34,7 @@ public class Event {
     private User organizer;
 
     @ManyToMany(mappedBy = "eventsAttended")
+    @JsonIgnore
     private List<User> guests;
 
     public Event() {}

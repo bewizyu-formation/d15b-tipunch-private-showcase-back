@@ -11,7 +11,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,13 +90,12 @@ public class EventController {
         }
     }
 
-    // TODO : [WIP] user can join an event
-//    @Secured("ROLE_USER")
-//    @PostMapping(path = "/{eventId}/{userId}")
-//    public void addGuest(@PathVariable String eventId, @PathVariable String userId) {
-//        User user = userService.findOne(Long.parseLong(userId));
-//
-//        eventService.addGuest(Long.parseLong(eventId), user);
-//    }
+    @Secured("ROLE_USER")
+    @PostMapping(path = "/{eventId}/users/{userId}")
+    public void addGuest(@PathVariable String eventId, @PathVariable String userId) {
+        User user = userService.findOne(Long.parseLong(userId));
+
+        eventService.addGuest(Long.parseLong(eventId), user);
+    }
 
 }
