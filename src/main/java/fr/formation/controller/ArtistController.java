@@ -17,7 +17,7 @@ public class ArtistController {
         this.artistService = artistService;
     }
 
-    @Secured("ROLE_ARTIST")
+    @Secured("ROLE_USER")
     @GetMapping("/{artistId}")
     public Artist findOne(@PathVariable String artistId) {
         return artistService.findOne(Long.parseLong(artistId));

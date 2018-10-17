@@ -74,7 +74,7 @@ public class UserService implements UserDetailsService {
         return this.userRepository.findAll();
     }
 
-    public void udpate(Long id, User user) {
+    public void update(Long id, User user) {
         Optional<User> optionalUser = userRepository.findById(id);
         optionalUser.ifPresent(u -> {
             u = user;

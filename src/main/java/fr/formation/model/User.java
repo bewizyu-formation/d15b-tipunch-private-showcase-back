@@ -3,6 +3,7 @@ package fr.formation.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +27,12 @@ public class User {
 
     @NotNull
     private Integer city;
+
+    @ManyToMany
+    private List<Event> eventsAttended;
+
+    @OneToMany(mappedBy = "organizer")
+    private List<Event> eventsOrganized;
 
     public User() {
     }
@@ -81,6 +88,22 @@ public class User {
         this.city = city;
     }
 
+    public List<Event> getEventsAttended() {
+        return eventsAttended;
+    }
+
+    public void setEventsAttended(List<Event> eventsAttended) {
+        this.eventsAttended = eventsAttended;
+    }
+
+    public List<Event> getEventsOrganized() {
+        return eventsOrganized;
+    }
+
+    public void setEventsOrganized(List<Event> eventsOrganized) {
+        this.eventsOrganized = eventsOrganized;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,11 +113,13 @@ public class User {
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(city, user.city);
+                Objects.equals(city, user.city) &&
+                Objects.equals(eventsAttended, user.eventsAttended) &&
+                Objects.equals(eventsOrganized, user.eventsOrganized);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, email, city);
+        return Objects.hash(id, login, password, email, city, eventsAttended, eventsOrganized);
     }
 }
